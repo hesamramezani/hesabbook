@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'hesabbook.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hesabketab',
+        'NAME': 'hesabbook',
         'USER': 'postgres',
         'PASSWORD':'137582ph',
         'HOST': 'localhost',
