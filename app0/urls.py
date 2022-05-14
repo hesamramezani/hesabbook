@@ -1,5 +1,5 @@
 from django.urls import path
-from views import Expend_views , Income_views
+from app0.views import Expend_views , Income_views
 
 urlpatterns = [
     path("expend/" , Expend_views.as_view() , name = "expend"),
