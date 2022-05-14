@@ -1,5 +1,4 @@
 from django.db import models
-
 from django.contrib.auth.models import User
 
 class Expend(models.Model):
@@ -16,4 +15,5 @@ class Income(models.Model):
     text = models.CharField(max_length=255)
     date = models.DateTimeField()
     amount = models.BigIntegerField()
+
 
