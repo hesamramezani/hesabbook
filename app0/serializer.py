@@ -1,5 +1,12 @@
 from rest_framework import serializers
-from .models import Expend , Income
+from .models import Expend , Income , User
+
+
+class User_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"
+
 
 class Expend_serializer(serializers.ModelSerializer):
     class Meta:
