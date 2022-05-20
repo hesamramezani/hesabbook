@@ -81,3 +81,4 @@ class Sum_of_Income(APIView):
     def get(self , request , pk):
         queyset = User.objects.get(pk = pk)
         return Response(Income.objects.filter(user=queyset).aggregate(Count("amount") , Sum("amount")))
+
