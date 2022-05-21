@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from django.db.models import Sum, Count
 from rest_framework import status
+from app0.permission import IsSuperUser , IsOwner
+from rest_framework.permissions import IsAuthenticated
 
 
 class Create_user(CreateAPIView):
@@ -17,14 +19,18 @@ class Create_user(CreateAPIView):
 class User_list(ListAPIView):
     queryset = User.objects.all()
     serializer_class = User_serializer
+    permission_classes = (IsSuperUser ,)
 
 
 class Expend_views(CreateAPIView):
     queryset = Expend.objects.all()
     serializer_class = Expend_serializer
+    permission_classes = (IsAuthenticated ,)
 
 
 class Edit_expend(APIView):
+    permission_classes = (IsOwner ,)
+
     def get(self , request , pk):
         queryset = Expend.objects.all().filter(user_id=pk)
         serialize = Expend_serializer(queryset , many=True)
@@ -47,9 +53,12 @@ class Edit_expend(APIView):
 class Income_views(CreateAPIView):
     queryset = Income.objects.all()
     serializer_class = Income_serializer
+    permission_classes = (IsAuthenticated ,)
 
 
 class Edit_income(APIView):
+    permission_classes = (IsOwner ,)
+
     def get(self , request , pk):
         queryset = Income.objects.all().filter(user_id=pk)
         serialize = Income_serializer(queryset , many=True)
@@ -71,6 +80,8 @@ class Edit_income(APIView):
 
 
 class Sum_of_Expend(APIView):
+    permission_classes = (IsOwner,)
+
     def get(self , request , pk):
         queyset = User.objects.get(pk = pk)
         return Response(Expend.objects.filter(user=queyset).aggregate(Count("amount") , Sum("amount")))
@@ -78,7 +89,11 @@ class Sum_of_Expend(APIView):
 
 
 class Sum_of_Income(APIView):
+    permission_classes = (IsOwner,)
+
     def get(self , request , pk):
         queyset = User.objects.get(pk = pk)
         return Response(Income.objects.filter(user=queyset).aggregate(Count("amount") , Sum("amount")))
+
+
 
